@@ -23,6 +23,7 @@ async function run() {
         await client.connect();
         const database = client.db('royalTour');
         const planCollection = database.collection('plan');
+        const orderCollection = database.collection('orders');
 
         // GET API
         app.get('/', async(req, res) => {
@@ -46,6 +47,38 @@ async function run() {
             console.log('load id', id);
             res.send(plan);
         })
+
+        // Add Orders API
+        app.post('/orders', async (req, res) => {
+            const order = req.body;
+            const result = await orderCollection.insertOne(order);
+            res.json(result);
+        })
+
+        // Get Orders
+        app.get('/all-orders', async (req, res) => {
+            const cursor = orderCollection.find({});
+            const orders = await cursor.toArray();
+            res.send(orders);
+        })
+
+        // Post to get data using key
+        // app.post('/orders/keys', async (req, res) => {
+        //     const _id = req.body;
+        //     const query = {key: {$in:_id}};
+        //     const orders = await planCollection.find(query).toArray();
+        //     res.json(orders);
+        // })
+
+        // Delete API
+        app.delete('/orders/:id', async(req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await orderCollection.deleteOne(query);
+            console.log('order delete with', id);
+            res.json(result);
+        })
+
 
     }
     finally {
