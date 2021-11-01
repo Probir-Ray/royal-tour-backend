@@ -11,8 +11,8 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xrfjl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-const uri = `mongodb+srv://royalDbUser:jRXRUhwswlWBLSjH@cluster0.xrfjl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xrfjl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+// const uri = `mongodb+srv://royalDbUser:jRXRUhwswlWBLSjH@cluster0.xrfjl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
@@ -61,14 +61,6 @@ async function run() {
             const orders = await cursor.toArray();
             res.send(orders);
         })
-
-        // Post to get data using key
-        // app.post('/orders/keys', async (req, res) => {
-        //     const _id = req.body;
-        //     const query = {key: {$in:_id}};
-        //     const orders = await planCollection.find(query).toArray();
-        //     res.json(orders);
-        // })
 
         // Update Status
         app.put('/orders/:id', async(req, res) => {
