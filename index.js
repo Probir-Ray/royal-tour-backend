@@ -70,6 +70,13 @@ async function run() {
         //     res.json(orders);
         // })
 
+        // Update Status
+        app.put('/orders/:id', async(req, res) => {
+            const id = req.params.id;
+            console.log('updating id', id);
+            res.send('updating this id', id);
+        })
+
         // Delete API
         app.delete('/orders/:id', async(req, res) => {
             const id = req.params.id;
