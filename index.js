@@ -25,7 +25,7 @@ async function run() {
         const planCollection = database.collection('plan');
         const orderCollection = database.collection('orders');
 
-        // GET API
+        // GET API: Get all plan
         app.get('/', async(req, res) => {
             const cursor = planCollection.find({});
             const plans = await cursor.toArray();
